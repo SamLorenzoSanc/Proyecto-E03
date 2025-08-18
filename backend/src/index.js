@@ -1,4 +1,6 @@
 import express from 'express';
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 import cokkieParser from 'cookie-parser';
 import './db/mongoose.js';
 import { petRouter } from './routes/pet.js';
@@ -14,6 +16,18 @@ import cors from 'cors';
 import { v2 as cloudinary } from 'cloudinary';
 
 export const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDist = path.join(__dirname, "../../frontend/dist");
+
+
+
+
+app.use("/tienda", express.static(path.join(frontendDist)));
+app.get("/tienda/*", (req, res) => {
+  res.sendFile(path.join(frontendDist, "index.html"));
+});
 
 app.use(express.json());
 // app.use(cors({ origin: 'http://localhost:5173' }));

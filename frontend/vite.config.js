@@ -11,6 +11,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  base: "/tienda/",
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
